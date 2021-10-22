@@ -1,6 +1,8 @@
 package com.shibuiwilliam.arcoremeasurement
 
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -29,5 +31,31 @@ class ArcoreMeasurement : AppCompatActivity() {
                 startActivity(intent)
             }
         })
+
+        isPkgInstalled(this,"com.google.arcore")
+    }
+
+    fun isPkgInstalled(context: Context, packageName:String) :Boolean {
+
+        if (packageName == null || "".equals(packageName)) return false
+
+        try {
+            var info = context.getPackageManager().getApplicationInfo(packageName, 0)
+            println("infos==================${info}")
+
+            var infos=  context.getPackageManager().getInstalledApplications(0)
+            if (!infos.isNullOrEmpty()) {
+                for (item in infos) {
+                    println("infos==================${item.packageName}")
+                }
+            }
+
+            return info != null
+
+        } catch (e: PackageManager.NameNotFoundException) {
+
+            return false
+
+        }
     }
 }

@@ -720,6 +720,10 @@ class Measurement : AppCompatActivity(), Scene.OnUpdateListener {
 
 
     private fun checkIsSupportedDeviceOrFinish(activity: Activity): Boolean {
+        var availability = ArCoreApk.getInstance().checkAvailability(this)
+
+        Log.e(TAG, "ArCoreApk availability isSupported:${availability?.isSupported},name:${availability?.name}")
+
         val openGlVersionString =
             (Objects.requireNonNull(activity
                 .getSystemService(Context.ACTIVITY_SERVICE)) as ActivityManager)
